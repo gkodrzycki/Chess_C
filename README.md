@@ -1,5 +1,5 @@
 # Chess_C
-Szachy w języku C
+Szachy w języku C w konsoli
 * nie obejmują*
   - Sprawdzenia czy jest pat
   - Sprawdzenia zasady 50 ruchów 
