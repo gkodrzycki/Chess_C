@@ -1615,7 +1615,7 @@ int main()
     printf("\nObecnie ruch ma: Bialy\n");
     ResetAttacked();
 
-    while(strcmp(Move, "ABANDON"))
+    while(strcmp(Move, "SURR"))
     {
 		bool Done = false;
 
@@ -1854,7 +1854,7 @@ int main()
 		    PrintBoard();
 		}
 		if(IsCheck(kto))   printf("Jestes w szachu!\n");
-		if(!strcmp(Move, "ABANDON"))
+		if(!strcmp(Move, "SURR"))
 		{
 		    printf("%s sie poddal\nWygral %s\n",WhoseMove[(CzyjRuch+1)%2], WhoseMove[CzyjRuch%2]);
 		    break;

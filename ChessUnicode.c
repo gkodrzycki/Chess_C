@@ -775,18 +775,52 @@ bool LongW()
 }
 bool ShortW()
 {
-    if(!IsCheck('B') && Board[7][5]->IsFree && Board[7][6]->IsFree && Board[7][7]->IsFirst && Board[7][4]->IsFirst)   return true;
-    return false;
+	Board2[7][6]->Figure = Board2[7][4]->Figure;
+	Board2[7][6]->IsFirst = false;
+	Board2[7][6]->IsFree = false;
+	Board2[7][6]->Kolor = Board2[7][4]->Kolor;
+
+	Board2[7][4]->Figure = '.';
+	Board2[7][4]->IsFirst = false;
+	Board2[7][4]->IsFree = true;
+	Board2[7][4]->Kolor = 'N';
+
+	Board2[7][5]->Figure = Board2[7][7]->Figure;
+	Board2[7][5]->IsFirst = false;
+	Board2[7][5]->IsFree = false;
+	Board2[7][5]->Kolor = Board2[7][7]->Kolor;
+
+	Board2[7][7]->Figure = '.';
+	Board2[7][7]->IsFirst = false;
+	Board2[7][7]->IsFree = true;
+	Board2[7][7]->Kolor = 'N';
 }
 bool LongB()
 {
     if(!IsCheck('W') && Board[0][1]->IsFree && Board[0][2]->IsFree && Board[0][3]->IsFree && Board[0][0]->IsFirst && Board[0][4]->IsFirst)   return true;
     return false;
 }
-bool ShortB()
+void ShortB()
 {
-    if(!IsCheck('W') && Board[0][5]->IsFree && Board[0][6]->IsFree && Board[0][7]->IsFirst && Board[0][4]->IsFirst)   return true;
-    return false;
+	Board2[0][6]->Figure = Board2[0][4]->Figure;
+	Board2[0][6]->IsFirst = false;
+	Board2[0][6]->IsFree = false;
+	Board2[0][6]->Kolor = Board2[0][4]->Kolor;
+
+    Board2[0][4]->Figure = '.';
+    Board2[0][4]->IsFirst = false;
+	Board2[0][4]->IsFree = true;
+	Board2[0][4]->Kolor = 'N';
+
+	Board2[0][5]->Figure = Board2[0][7]->Figure;
+	Board2[0][5]->IsFirst = false;
+	Board2[0][5]->IsFree = false;
+	Board2[0][5]->Kolor = Board2[0][7]->Kolor;
+
+	Board2[0][7]->Figure = '.';
+	Board2[0][7]->IsFirst = false;
+	Board2[0][7]->IsFree = true;
+	Board2[0][7]->Kolor = 'N';
 }
 bool RookMate(int rank, int file, char kto)
 {
@@ -1604,7 +1638,7 @@ int main()
     fclose(f);
     ResetAttacked();
 
-    while(strcmp(Move, "ABANDON"))
+    while(strcmp(Move, "SURR"))
     {
 		bool Done = false;
 
@@ -1616,56 +1650,21 @@ int main()
 		    FindAttacked();
 		    if(CzyjRuch%2 == 1)
 		    {
-		        if(ShortW() && !WhereBoard[7][5]->byBlack && !WhereBoard[7][6]->byBlack)
+		        if(!IsCheck('B') && Board[7][5]->IsFree && Board[7][6]->IsFree && Board[7][7]->IsFirst && Board[7][4]->IsFirst && !WhereBoard[7][5]->byBlack && !WhereBoard[7][6]->byBlack)
 		        {
-		            Done = true;
+		            ShortW();
 		            enPas = false;
-		            Board2[7][6]->Figure = Board2[7][4]->Figure;
-		            Board2[7][6]->IsFirst = false;
-		            Board2[7][6]->IsFree = false;
-		            Board2[7][6]->Kolor = Board2[7][4]->Kolor;
+		            Done = true;
 
-		            Board2[7][4]->Figure = '.';
-		            Board2[7][4]->IsFirst = false;
-		            Board2[7][4]->IsFree = true;
-		            Board2[7][4]->Kolor = 'N';
-
-		            Board2[7][5]->Figure = Board2[7][7]->Figure;
-		            Board2[7][5]->IsFirst = false;
-		            Board2[7][5]->IsFree = false;
-		            Board2[7][5]->Kolor = Board2[7][7]->Kolor;
-
-		            Board2[7][7]->Figure = '.';
-		            Board2[7][7]->IsFirst = false;
-		            Board2[7][7]->IsFree = true;
-		            Board2[7][7]->Kolor = 'N';
 		        }
 		    }
 		    else
 		    {
-		        if(ShortB() && !WhereBoard[0][5]->byWhite && !WhereBoard[0][6]->byWhite)
+		        if(!IsCheck('W') && Board[0][5]->IsFree && Board[0][6]->IsFree && Board[0][7]->IsFirst && Board[0][4]->IsFirst && !WhereBoard[0][5]->byWhite && !WhereBoard[0][6]->byWhite)
 		        {
-		            Done = true;
+		            ShortB();
 		            enPas = false;
-		            Board2[0][6]->Figure = Board2[0][4]->Figure;
-		            Board2[0][6]->IsFirst = false;
-		            Board2[0][6]->IsFree = false;
-		            Board2[0][6]->Kolor = Board2[0][4]->Kolor;
-
-		            Board2[0][4]->Figure = '.';
-		            Board2[0][4]->IsFirst = false;
-		            Board2[0][4]->IsFree = true;
-		            Board2[0][4]->Kolor = 'N';
-
-		            Board2[0][5]->Figure = Board2[0][7]->Figure;
-		            Board2[0][5]->IsFirst = false;
-		            Board2[0][5]->IsFree = false;
-		            Board2[0][5]->Kolor = Board2[0][7]->Kolor;
-
-		            Board2[0][7]->Figure = '.';
-		            Board2[0][7]->IsFirst = false;
-		            Board2[0][7]->IsFree = true;
-		            Board2[0][7]->Kolor = 'N';
+		            Done = true;
 		        }
 		    }
 		    FindAttacked();
@@ -1843,7 +1842,7 @@ int main()
 		    PrintBoard();
 		}
 		if(IsCheck(kto))   printf("Jestes w szachu!\n");
-		if(!strcmp(Move, "ABANDON"))
+		if(!strcmp(Move, "SURR"))
 		{
 		    printf("%s sie poddal\nWygral %s\n",WhoseMove[(CzyjRuch+1)%2], WhoseMove[CzyjRuch%2]);
 		    break;
